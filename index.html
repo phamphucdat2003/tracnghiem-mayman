@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KIỂM TRA MAY MẮN</title>
+  <link rel="icon" href="https://hoanchan.github.io/assets/projects//hc-mix/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">KIỂM TRA MAY MẮN</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            đây là trang kiểm tra may mắn trước khi thi trắc nghiệm,<br/>
+            muốn thử xin hãy bấm TIẾP TỤC.<br/>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">TIẾP TỤC</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="nav justify-content-center mt-2">
+    <li class="nav-item ml-2">
+      <button onclick="remove(); generateCards(10)" type="button" class="btn btn-outline-primary">10 câu</button>
+    </li>
+    <li class="nav-item ml-2">
+      <button onclick="remove(); generateCards(20)" type="button" class="btn btn-outline-primary">20 câu</button>
+    </li>
+    <li class="nav-item ml-2">
+      <button onclick="remove(); generateCards(30)" type="button" class="btn btn-outline-primary">30 câu</button>
+    </li>
+    <li class="nav-item ml-2">
+      <button onclick="remove(); generateCards(40)" type="button" class="btn btn-outline-primary">40 câu</button>
+    </li>
+    <li class="nav-item ml-2">
+      <button onclick="remove(); generateCards(50)" type="button" class="btn btn-outline-primary">50 câu</button>
+    </li>
+    <li class="nav-item ml-2">
+      <button id="btncheck" type="button" class="btn btn-outline-primary">Kiểm tra điểm</button>
+    </li>
+    <li class="nav-item ml-2">
+      <input id="outputkq" type="text" disabled class="form-control">
+    </li>
+  </ul>
+  <div  class="container-fluid">
+    <div id='father' class="row">
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      $('#myModal').modal('show');
+    });
+    const father = document.getElementById('father');
+    const submitButton = document.getElementById('btncheck');
+    const outputkq = document.getElementById('outputkq');
+    function remove(){
+      father.innerHTML='';
+      outputkq.value='';
+    };
+    function generateCards(x) {
+      for (var i = 0; i < x; i++) {
+        var randomNumber = Math.floor(Math.random() * 4) + 1;
+        var option1 = (randomNumber === 1);
+        var option2 = (randomNumber === 2);
+        var option3 = (randomNumber === 3);
+        var option4 = (randomNumber === 4);
+        father.innerHTML += `
+        <div class="col-md-2 mt-4">
+          <div class="card w-100"> 
+            <div class="card-body">
+              <h5 class="card-title">Câu hỏi ${i+1}</h5>
+              <div class="ml-5">
+              <input type="radio" name="question${i+1}" value="${option1}"> Option 1 <br>
+              <input type="radio" name="question${i+1}" value="${option2}"> Option 2 <br>
+              <input type="radio" name="question${i+1}" value="${option3}"> Option 3 <br>
+              <input type="radio" name="question${i+1}" value="${option4}"> Option 4 <br>
+              </div>
+            </div>
+          </div>
+        </div>
+        `;
+      }
+    }
+  submitButton.addEventListener('click', function() {
+    let correctCount = 0;
+
+    for (let i = 0; i < 40; i++) {
+      const question = document.getElementsByName(`question${i + 1}`);
+      const selectedOption = Array.from(question).find(option => option.checked);
+
+      if (selectedOption && selectedOption.value === 'true') {
+        correctCount++;
+      }
+    }
+    outputkq.value=correctCount;
+  });
+  </script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
+</body>
+</html>
